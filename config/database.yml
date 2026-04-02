@@ -1,0 +1,35 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  username: postgres
+  password: password
+  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+
+development:
+  <<: *default
+  database: tech_space_development
+test:
+  <<: *default
+  database: tech_space_test
+
+
+production:
+  primary: &primary_production
+    <<: *default
+    database: tech_space_production
+    username: tech_space
+    password: <%= ENV["TECH_SPACE_BACKEND_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: tech_space_backend_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: tech_space_backend_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: tech_space_backend_production_cable
+    migrations_paths: db/cable_migrate
