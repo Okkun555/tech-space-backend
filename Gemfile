@@ -4,8 +4,9 @@ gem "bcrypt", "~> 3.1.7"
 gem "blueprinter"
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
-gem "rails", "~> 8.1.2"
 gem "rack-cors"
+gem "rails", "~> 8.1.2"
+gem 'rails-i18n'
 gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
@@ -15,13 +16,15 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 group :development, :test do
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "bundler-audit", require: false
   gem "brakeman", require: false
-  gem "rubocop-rails-omakase", require: false
-  gem "rspec-rails"
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "factory_bot_rails"
   gem "faker"
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem "rubocop-rails-omakase", require: false
+  gem "rspec-rails"
 end
 
 group :test do

@@ -12,6 +12,7 @@ module TechSpaceBackend
     config.load_defaults 8.1
     config.autoload_lib(ignore: %w[assets tasks])
     config.api_only = true
+    config.i18n.default_locale = :ja
 
     config.session_store :cookie_store, key: "_tech_space_session"
     config.middleware.use ActionDispatch::Cookies
