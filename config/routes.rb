@@ -3,5 +3,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     post "auth/signup", to: "auth/signup#create"
+    post "auth/login", to: "auth/sessions#create"
   end
 end

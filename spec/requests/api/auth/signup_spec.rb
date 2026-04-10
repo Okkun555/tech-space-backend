@@ -10,16 +10,16 @@ RSpec.describe "Api::Auth::Signups", type: :request do
     let(:email) { Faker::Internet.email }
     let(:password) { Faker::Internet.password }
 
-    # context "有効なパラメータの場合" do
-    #   it "アカウントを新規作成、返却する" do
-    #     expect { subject }.to change(User, :count).by(1)
-    #     expect(response).to have_http_status(:created)
-    #     expect(response.parsed_body["data"]).to eq({
-    #                                          "id" => User.last&.id,
-    #                                          "email" => email,
-    #                                        })
-    #   end
-    # end
+    context "有効なパラメータの場合" do
+      it "アカウントを新規作成、201を返却する" do
+        expect { subject }.to change(User, :count).by(1)
+        expect(response).to have_http_status(:created)
+        expect(response.parsed_body["data"]).to eq({
+                                             "id" => User.last&.id,
+                                             "email" => email,
+                                           })
+      end
+    end
 
     context "無効なパラメータの場合" do
       context "形式が無効なメールアドレスの場合" do
