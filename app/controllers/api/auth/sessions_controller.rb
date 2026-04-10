@@ -12,6 +12,11 @@ class Api::Auth::SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    reset_session
+    head :no_content
+  end
+
   private
     def login_params
       params.expect(session: [:email, :password])
