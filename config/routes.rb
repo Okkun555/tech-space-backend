@@ -5,5 +5,6 @@ Rails.application.routes.draw do
     post "auth/signup", to: "auth/signup#create"
     post "auth/login", to: "auth/sessions#create"
     delete "auth/logout", to: "auth/sessions#destroy"
+    get "auth/me", to: "auth/me#show"
   end
 end
