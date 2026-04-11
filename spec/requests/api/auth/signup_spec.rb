@@ -29,9 +29,13 @@ RSpec.describe "Api::Auth::Signups", type: :request do
           expect { subject }.to change(User, :count).by(0)
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.parsed_body).to eq({
-                                              "errors" => {
-                                                "email" => ["メールアドレスは不正な値です"]
-                                              }
+                                              "code" => "validation_error",
+                                              "errors" => [
+                                                {
+                                                  "field" => "email",
+                                                  "message" => "メールアドレスは不正な値です"
+                                                }
+                                              ]
                                              })
         end
       end
@@ -43,9 +47,13 @@ RSpec.describe "Api::Auth::Signups", type: :request do
           expect { subject }.to change(User, :count).by(0)
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.parsed_body).to eq({
-                                               "errors" => {
-                                                 "password" => ["パスワードは8文字以上で入力してください"]
-                                               }
+                                               "code" => "validation_error",
+                                               "errors" => [
+                                                 {
+                                                   "field" => "password",
+                                                   "message" => "パスワードは8文字以上で入力してください"
+                                                 }
+                                               ]
                                              })
         end
       end
@@ -57,11 +65,26 @@ RSpec.describe "Api::Auth::Signups", type: :request do
         it "422とエラーメッセージを返す" do
           expect { subject }.to change(User, :count).by(0)
           expect(response).to have_http_status(:unprocessable_entity)
-          expect(response.parsed_body).to eq({
-                                               "errors" => {
-                                                 "email" => ["メールアドレスを入力してください", "メールアドレスは不正な値です"],
-                                                 "password" => ["パスワードを入力してください", "パスワードは8文字以上で入力してください"]
-                                               }
+          expect(response.parsed_body).to include({
+                                               "code" => "validation_error",
+                                               "errors" => match_array([
+                                                 {
+                                                   "field" => "email",
+                                                   "message" => "メールアドレスを入力してください",
+                                                 },
+                                                 {
+                                                   "field" => "email",
+                                                   "message" => "メールアドレスは不正な値です"
+                                                 },
+                                                 {
+                                                   "field" => "password",
+                                                   "message" => "パスワードを入力してください",
+                                                 },
+                                                 {
+                                                   "field" => "password",
+                                                   "message" => "パスワードは8文字以上で入力してください"
+                                                 }
+                                               ])
                                              })
         end
       end
