@@ -25,6 +25,15 @@ RSpec.describe "Api::Auth::Sessions", type: :request do
         it "401を返す" do
           subject
           expect(response).to have_http_status(:unauthorized)
+          expect(response.parsed_body).to eq({
+                                               "code" => "invalid_credentials",
+                                               "errors" => [
+                                                 {
+                                                   "field" => "base",
+                                                   "message" => "メールアドレスまたはパスワードが正しくありません",
+                                                 }
+                                               ]
+                                             })
         end
       end
 
@@ -34,6 +43,15 @@ RSpec.describe "Api::Auth::Sessions", type: :request do
         it "401を返す" do
           subject
           expect(response). to have_http_status(:unauthorized)
+          expect(response.parsed_body).to eq({
+                                               "code" => "invalid_credentials",
+                                               "errors" => [
+                                                 {
+                                                   "field" => "base",
+                                                   "message" => "メールアドレスまたはパスワードが正しくありません",
+                                                 }
+                                               ]
+                                             })
         end
       end
     end
