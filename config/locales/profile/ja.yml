@@ -1,0 +1,16 @@
+ja:
+  activerecord:
+    models:
+      profile: "プロフィール"
+    attributes:
+      profile:
+        name: "アカウント名"
+        birthday: "生年月日"
+        gender: "性別"
+        introduction: "自己紹介"
+    errors:
+      models:
+        profile:
+          attributes:
+            birthday:
+              in_the_past: "は今日以前の日付を入力してください"
