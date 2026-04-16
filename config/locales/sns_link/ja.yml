@@ -1,0 +1,8 @@
+ja:
+  activerecord:
+    models:
+      sns_link: "SNSリンク"
+    attributes:
+      sns_link:
+        service_name: "サービス名"
+        link: "リンク"

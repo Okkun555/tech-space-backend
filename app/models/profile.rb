@@ -2,6 +2,10 @@ class Profile < ApplicationRecord
   belongs_to :user
   belongs_to :occupation, optional: true
 
+  with_options dependent: :destroy do
+    has_many :sns_links
+  end
+
   validates :name, presence: true, uniqueness: true, length: { maximum: 100 }
   validates :birthday, presence: true
   validate :birthday_in_the_past
