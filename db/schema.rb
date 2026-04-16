@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_13_130405) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_16_224633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,6 +19,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_13_130405) do
     t.string "name", comment: "職業名"
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_occupations_on_name", unique: true
+  end
+
+  create_table "profile_programming_languages", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "profile_id", null: false
+    t.bigint "programming_language_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id", "programming_language_id"], name: "idx_on_profile_id_programming_language_id_879803ab1a", unique: true
+    t.index ["profile_id"], name: "index_profile_programming_languages_on_profile_id"
+    t.index ["programming_language_id"], name: "index_profile_programming_languages_on_programming_language_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -41,6 +51,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_13_130405) do
     t.index ["name"], name: "index_programming_languages_on_name", unique: true
   end
 
+  create_table "sns_links", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "link", null: false, comment: "リンク"
+    t.bigint "profile_id", null: false
+    t.string "service_name", null: false, comment: "サービス名"
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_sns_links_on_profile_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", null: false, comment: "メールアドレス"
@@ -49,6 +68,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_13_130405) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "profile_programming_languages", "profiles"
+  add_foreign_key "profile_programming_languages", "programming_languages"
   add_foreign_key "profiles", "occupations"
   add_foreign_key "profiles", "users"
+  add_foreign_key "sns_links", "profiles"
 end
