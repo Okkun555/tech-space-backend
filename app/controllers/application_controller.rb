@@ -4,6 +4,8 @@ class ApplicationController < ActionController::API
 
   protect_from_forgery with: :null_session
 
+  before_action :authenticated!
+
   rescue_from ActiveRecord::RecordInvalid, with: :rescue_record_invalid
 
   private
@@ -12,6 +14,6 @@ class ApplicationController < ActionController::API
     end
 
   def authenticated!
-    render json: { }, status: :unauthorized unless current_user
+    render_unauthorized unless current_user
   end
 end

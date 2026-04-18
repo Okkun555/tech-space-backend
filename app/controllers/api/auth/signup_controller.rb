@@ -1,4 +1,5 @@
 class Api::Auth::SignupController < ApplicationController
+  skip_before_action :authenticated!
   def create
     user = User.create!(signup_params)
     session[:user_id] = user.id

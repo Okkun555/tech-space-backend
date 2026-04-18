@@ -1,4 +1,5 @@
 class Api::Auth::SessionsController < ApplicationController
+  skip_before_action :authenticated!, only: [ :create ]
   def create
     user = User.find_by(email: login_params[:email])
 
@@ -17,6 +18,6 @@ class Api::Auth::SessionsController < ApplicationController
 
   private
     def login_params
-      params.expect(session: [:email, :password])
+      params.expect(session: [ :email, :password ])
     end
 end
