@@ -3,7 +3,7 @@ class ErrorSerializer
     errors.map do |error|
       {
         field: error.attribute.to_s,
-        message: error.full_message,
+        message: error.full_message
       }
     end
   end

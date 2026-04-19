@@ -8,6 +8,6 @@ class Api::Auth::SignupController < ApplicationController
 
   private
     def signup_params
-      params.expect(user: [:email, :password, :password_confirmation])
+      params.expect(user: [ :email, :password, :password_confirmation ])
     end
 end

@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
   include ActionController::RequestForgeryProtection
   include RenderHelper
 
-  protect_from_forgery with: :null_session
+  protect_from_forgery with: :null_session, unless: -> { Rails.env.test? }
 
   before_action :authenticated!
 

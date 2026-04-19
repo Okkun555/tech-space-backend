@@ -12,6 +12,7 @@ class Profile < ApplicationRecord
   validates :birthday, presence: true
   validate :birthday_in_the_past
   validates :gender, presence: true
+  validates :occupation, presence: true, if: -> { :occupation_id.present? }
   validates :introduction, length: { maximum: 500 }
 
   enum :gender, { male: 0, female: 1, other: 2 }

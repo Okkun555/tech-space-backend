@@ -16,7 +16,7 @@ RSpec.describe "Api::Auth::Signups", type: :request do
         expect(response).to have_http_status(:created)
         expect(response.parsed_body["data"]).to eq({
                                              "id" => User.last&.id,
-                                             "email" => email,
+                                             "email" => email
                                            })
       end
     end
@@ -70,7 +70,7 @@ RSpec.describe "Api::Auth::Signups", type: :request do
                                                "errors" => match_array([
                                                  {
                                                    "field" => "email",
-                                                   "message" => "メールアドレスを入力してください",
+                                                   "message" => "メールアドレスを入力してください"
                                                  },
                                                  {
                                                    "field" => "email",
@@ -78,7 +78,7 @@ RSpec.describe "Api::Auth::Signups", type: :request do
                                                  },
                                                  {
                                                    "field" => "password",
-                                                   "message" => "パスワードを入力してください",
+                                                   "message" => "パスワードを入力してください"
                                                  },
                                                  {
                                                    "field" => "password",

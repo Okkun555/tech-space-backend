@@ -30,7 +30,7 @@ RSpec.describe "Api::Auth::Sessions", type: :request do
                                                "errors" => [
                                                  {
                                                    "field" => "base",
-                                                   "message" => "メールアドレスまたはパスワードが正しくありません",
+                                                   "message" => "メールアドレスまたはパスワードが正しくありません"
                                                  }
                                                ]
                                              })
@@ -48,7 +48,7 @@ RSpec.describe "Api::Auth::Sessions", type: :request do
                                                "errors" => [
                                                  {
                                                    "field" => "base",
-                                                   "message" => "メールアドレスまたはパスワードが正しくありません",
+                                                   "message" => "メールアドレスまたはパスワードが正しくありません"
                                                  }
                                                ]
                                              })
