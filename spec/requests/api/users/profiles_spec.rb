@@ -66,8 +66,6 @@ RSpec.describe "Api::Users::Profiles", type: :request do
                                                            ])
             end
           end
-
-
         end
       end
     end
