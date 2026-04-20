@@ -8,6 +8,7 @@ class Profile < ApplicationRecord
     has_many :profile_programming_languages
   end
 
+  validates :user, uniqueness: true
   validates :name, presence: true, uniqueness: true, length: { maximum: 100 }
   validates :birthday, presence: true
   validate :birthday_in_the_past

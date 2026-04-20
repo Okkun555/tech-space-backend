@@ -1,8 +1,6 @@
 class Api::Users::ProfilesController < ApplicationController
   def create
-    return render_conflict(message: "プロフィールは作成済みです") if current_user.profile.present?
-
-    profile = current_user.create_profile!(profile_params)
+    profile = Profile.create!(profile_params.merge(user: current_user))
     render json: {
       data: ProfileSerializer.render_as_json(profile)
     }, status: :created

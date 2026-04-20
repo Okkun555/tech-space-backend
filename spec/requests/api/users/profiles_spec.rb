@@ -39,12 +39,12 @@ RSpec.describe "Api::Users::Profiles", type: :request do
             create(:profile, user:)
           end
 
-          it "409を返す" do
+          it "422を返す" do
             expect { subject }.not_to change(Profile, :count)
-            expect(response).to have_http_status(:conflict)
+            expect(response).to have_http_status(:unprocessable_entity)
             expect(response.parsed_body["errors"]).to eq([
                                                            {
-                                                             "field" => "base",
+                                                             "field" => "user",
                                                              "message" => "プロフィールは作成済みです"
                                                            }
                                                          ])
