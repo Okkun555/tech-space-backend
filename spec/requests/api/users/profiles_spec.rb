@@ -4,7 +4,7 @@ RSpec.describe "Api::Users::Profiles", type: :request do
   let(:user) { create(:user) }
   let(:occupation) { create(:occupation) }
 
-  describe "POST /api/users/:user_id/profile" do
+  describe "POST /api/users/profile" do
     subject { post api_users_profile_path, params: }
 
     let(:name) { Faker::Name.name }
