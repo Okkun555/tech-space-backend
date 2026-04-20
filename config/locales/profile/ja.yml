@@ -4,6 +4,7 @@ ja:
       profile: "プロフィール"
     attributes:
       profile:
+        user: ""
         name: "アカウント名"
         birthday: "生年月日"
         gender: "性別"
@@ -12,5 +13,7 @@ ja:
       models:
         profile:
           attributes:
+            user:
+              taken: "プロフィールは作成済みです"
             birthday:
               in_the_past: "は今日以前の日付を入力してください"
