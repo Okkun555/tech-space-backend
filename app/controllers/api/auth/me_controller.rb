@@ -1,7 +1,7 @@
 class Api::Auth::MeController < ApplicationController
   def show
     render json: {
-      data: UserSerializer.render_as_json(@current_user)
+      data: UserSerializer.render_as_json(@current_user, view: :with_profile)
     }
   end
 end
