@@ -17,7 +17,7 @@ RSpec.describe "Api::Auth::Me", type: :request do
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body["data"]).to eq({
                                 "id" => user.id,
-                                "email" => user.email,
+                                "email" => user.email
                               })
         end
       end
@@ -39,8 +39,8 @@ RSpec.describe "Api::Auth::Me", type: :request do
               "introduction" => profile.introduction,
               "occupation" => {
                 "id" => profile.occupation.id,
-                "name" => profile.occupation.name,
-              },
+                "name" => profile.occupation.name
+              }
             }
                                                      })
         end
