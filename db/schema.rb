@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_25_133757) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_27_120857) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -58,7 +58,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_25_133757) do
     t.bigint "profile_id", null: false
     t.string "service_name", null: false, comment: "サービス名"
     t.datetime "updated_at", null: false
-    t.index ["profile_id"], name: "index_sns_links_on_profile_id", unique: true
+    t.index ["profile_id", "service_name"], name: "index_sns_links_on_profile_id_and_service_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|

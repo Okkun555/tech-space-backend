@@ -27,9 +27,63 @@ RSpec.describe "Api::Users::Profiles", type: :request do
       before { login(user) }
 
       context "正常系" do
-        it "プロフィールを作成し、201を返す" do
-          expect { subject }.to change(Profile, :count).by(1)
-          expect(response).to have_http_status(:created)
+        context "経験したプログラミング言語、SNSリンクを未入力の場合" do
+          it "プロフィールを作成し、201を返す" do
+            expect { subject }.to change(Profile, :count).by(1)
+                                                         .and change(ProfileProgrammingLanguage, :count).by(0)
+                                                                                                        .and change(SnsLink, :count).by(0)
+            expect(response).to have_http_status(:created)
+          end
+        end
+
+        context "経験したプログラミング言語を入力済みの場合" do
+          let(:programming_language_1) { create(:programming_language) }
+          let(:programming_language_2) { create(:programming_language) }
+          let(:params) do
+            {
+              profile: {
+                name:,
+                birthday:,
+                gender:,
+                occupation_id: occupation.id,
+                introduction:,
+                programming_languages: [
+                  { id: programming_language_1.id, experience_years: 1 },
+                  { id: programming_language_2.id, experience_years: 2 }
+                ]
+              }
+            }
+          end
+
+          it "プロフィールと経験紐付きを作成し、201を返す" do
+            expect { subject }.to change(Profile, :count).by(1)
+                                                         .and change(ProfileProgrammingLanguage, :count).by(2)
+            expect(response).to have_http_status(:created)
+          end
+        end
+
+        context "SNSリンクを入力済みの場合" do
+          let(:params) do
+            {
+              profile: {
+                name:,
+                birthday:,
+                gender:,
+                occupation_id: occupation.id,
+                introduction:,
+                sns_links: [
+                  { service_name: 'github', link: 'https://github.com' },
+                  { service_name: 'twitter', link: 'https://twitter.com' }
+                ]
+              }
+            }
+          end
+
+          it "プロフィールと経験紐付きを作成し、201を返す" do
+            expect { subject }.to change(Profile, :count).by(1)
+                                                         .and change(SnsLink, :count).by(2)
+            expect(response).to have_http_status(:created)
+          end
         end
       end
 
