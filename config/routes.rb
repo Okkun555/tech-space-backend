@@ -10,5 +10,7 @@ Rails.application.routes.draw do
     namespace :users do
       resource :profile, only: %i[create]
     end
+
+    resources :occupations, only: %i[index]
   end
 end
