@@ -80,7 +80,7 @@ RSpec.describe "Api::Users::Profiles", type: :request do
           end
 
           it "プロフィールと経験紐付きを作成し、201を返す" do
-            expect { subject }.to change(Profile, :count).by(1)
+              expect { subject }.to change(Profile, :count).by(1)
                                                          .and change(SnsLink, :count).by(2)
             expect(response).to have_http_status(:created)
           end
