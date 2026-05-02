@@ -12,5 +12,6 @@ Rails.application.routes.draw do
     end
 
     resources :occupations, only: %i[index]
+    resources :programming_languages, only: %i[index]
   end
 end
