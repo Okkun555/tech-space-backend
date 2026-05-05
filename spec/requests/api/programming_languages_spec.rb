@@ -20,11 +20,11 @@ RSpec.describe "Api::ProgrammingLanguages", type: :request do
         expect(response.parsed_body[:data]).to contain_exactly(
                                                  {
                                                    "id" => programming_language1.id,
-                                                   "name" => programming_language1.name,
+                                                   "name" => programming_language1.name
                                                  },
                                                  {
                                                    "id" => programming_language2.id,
-                                                   "name" => programming_language2.name,
+                                                   "name" => programming_language2.name
                                                  }
                                                )
       end

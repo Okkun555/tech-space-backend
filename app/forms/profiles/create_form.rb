@@ -35,4 +35,3 @@ class Profiles::CreateForm
     profile
   end
 end
-

@@ -11,7 +11,7 @@ RSpec.describe "Api::Posts", type: :request do
     let(:params) do
       {
         posts: {
-          content:,
+          content:
         }
       }
     end
@@ -36,7 +36,7 @@ RSpec.describe "Api::Posts", type: :request do
           it "エラーと422を返す" do
             expect { subject }.to change(Post, :count).by(0)
             expect(response).to have_http_status(:unprocessable_entity)
-            expect(response.parsed_body["errors"]).to  eq([
+            expect(response.parsed_body["errors"]).to eq([
                                                             {
                                                               "field" => "content",
                                                               "message" => "内容を入力してください"

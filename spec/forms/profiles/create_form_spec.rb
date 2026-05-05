@@ -19,10 +19,10 @@ RSpec.describe Profiles::CreateForm do
         occupation_id: occupation.id,
         introduction:,
         programming_languages: [
-          { id: programming_language.id, experience_years: 1 },
+          { id: programming_language.id, experience_years: 1 }
         ],
         sns_links: [
-          { service_name: 'github', link: 'https://github.com' },
+          { service_name: 'github', link: 'https://github.com' }
         ]
       }
     end
@@ -38,4 +38,3 @@ RSpec.describe Profiles::CreateForm do
     end
   end
 end
-

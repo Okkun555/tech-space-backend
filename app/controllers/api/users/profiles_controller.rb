@@ -14,7 +14,7 @@ class Api::Users::ProfilesController < ApplicationController
       params.expect(profile: [
         :name, :birthday, :gender, :occupation_id, :introduction,
         { programming_languages: [ [ :id, :experience_years ] ] },
-        { sns_links: [ [:service_name, :link] ] }
+        { sns_links: [ [ :service_name, :link ] ] }
       ])
     end
 end
