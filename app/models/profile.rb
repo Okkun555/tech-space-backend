@@ -5,6 +5,7 @@ class Profile < ApplicationRecord
   with_options dependent: :destroy do
     has_many :sns_links
     has_many :profile_programming_languages
+    has_many :posts
   end
 
   has_many :programming_languages, through: :profile_programming_languages

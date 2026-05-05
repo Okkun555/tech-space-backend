@@ -13,5 +13,7 @@ Rails.application.routes.draw do
 
     resources :occupations, only: %i[index]
     resources :programming_languages, only: %i[index]
+
+    resources :posts, only: %i[index create destroy]
   end
 end
