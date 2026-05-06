@@ -37,7 +37,7 @@ RSpec.describe "Api::Posts", type: :request do
             {
               posts: {
                 content:,
-                images: [image, image2]
+                images: [ image, image2 ]
               }
             }
           end
