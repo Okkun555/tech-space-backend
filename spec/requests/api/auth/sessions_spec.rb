@@ -26,7 +26,7 @@ RSpec.describe "Api::Auth::Sessions", type: :request do
           subject
           expect(response).to have_http_status(:unauthorized)
           expect(response.parsed_body).to eq({
-                                               "code" => "invalid_credentials",
+                                               "code" => "unauthorized",
                                                "errors" => [
                                                  {
                                                    "field" => "base",
@@ -44,7 +44,7 @@ RSpec.describe "Api::Auth::Sessions", type: :request do
           subject
           expect(response). to have_http_status(:unauthorized)
           expect(response.parsed_body).to eq({
-                                               "code" => "invalid_credentials",
+                                               "code" => "unauthorized",
                                                "errors" => [
                                                  {
                                                    "field" => "base",
