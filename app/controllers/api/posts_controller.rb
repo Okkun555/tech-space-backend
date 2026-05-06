@@ -1,4 +1,12 @@
 class Api::PostsController < ApplicationController
+  def index
+    pagy, posts = pagy(Post.all.order(created_at: :desc))
+    render json: {
+      data: PostSerializer.render_as_json(posts),
+      pagination: PaginationSerializer.render(pagy)
+    }
+  end
+
   def create
     post = current_profile.posts.build(posts_params)
     post.save!

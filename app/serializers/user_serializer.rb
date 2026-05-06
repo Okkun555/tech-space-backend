@@ -4,6 +4,6 @@ class UserSerializer < Blueprinter::Base
   field :email
 
   view :with_profile do
-    association :profile, blueprint: ProfileSerializer, if: ->(_field_name, user, _options) { user.profile.present? }
+    association :profile, blueprint: ProfileSerializer, view: :detail, if: ->(_field_name, user, _options) { user.profile.present? }
   end
 end

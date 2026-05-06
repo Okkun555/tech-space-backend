@@ -4,6 +4,67 @@ RSpec.describe "Api::Posts", type: :request do
   let(:user) { create(:user) }
   let!(:profile) { create(:profile, user: user) }
 
+  describe "GET /api/posts" do
+    subject { get api_posts_url }
+
+    context "ログイン済みの場合" do
+      let(:post1) { create(:post) }
+      let(:post2) { create(:post) }
+      let(:post3) { create(:post) }
+      let(:post_with_image) { create(:post) }
+      let(:image) { fixture_file_upload("png_sample1.png", "image/png") }
+
+      before do
+        login(user)
+      end
+
+      context "レスポンスの検証" do
+        let!(:post1) { create(:post) }
+        let!(:post2) { create(:post) }
+
+        it "投稿作成日の降順で投稿一覧を返す" do
+          subject
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body['data']).to eq([
+                                   {
+                                     "id" => post2.id,
+                                     "content" => post2.content,
+                                     "created_at" => post2.created_at.iso8601,
+                                     "profile" => {
+                                       "id" => post2.profile.id,
+                                       "name" => post2.profile.name
+                                     }
+                                   },
+                                   {
+                                     "id" => post1.id,
+                                     "content" => post1.content,
+                                     "created_at" => post1.created_at.iso8601,
+                                     "profile" => {
+                                       "id" => post1.profile.id,
+                                       "name" => post1.profile.name
+                                     }
+                                   }
+                                 ])
+        end
+      end
+
+      context "ページネーションの検証" do
+        let(:post1) { create(:post) }
+        let(:post2) { create(:post) }
+        let(:post3) { create(:post) }
+        let(:post_with_image) { create(:post) }
+        let(:image) { fixture_file_upload("png_sample1.png", "image/png") }
+      end
+    end
+
+    context "未ログインの場合" do
+      it "401を返す" do
+        subject
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
+
   describe "POST /api/posts" do
     subject { post api_posts_path, params: }
     let(:content) { "This is my first post!" }

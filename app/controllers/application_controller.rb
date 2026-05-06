@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
   include RenderHelper
+  include Pagy::Method
 
   before_action :authenticated!
 

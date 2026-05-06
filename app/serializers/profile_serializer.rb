@@ -1,7 +1,10 @@
 class ProfileSerializer < Blueprinter::Base
   identifier :id
 
-  fields :name, :birthday, :gender, :introduction
+  field :name
 
-  association :occupation, blueprint: OccupationSerializer
+  view :detail do
+    fields :birthday, :gender, :introduction
+    association :occupation, blueprint: OccupationSerializer
+  end
 end
