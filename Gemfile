@@ -21,6 +21,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "factory_bot_rails"
   gem "faker"
+  gem "lefthook", require: false
   gem "pry-rails"
   gem "pry-byebug"
   gem "rubocop-rails-omakase", require: false
