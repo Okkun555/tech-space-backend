@@ -5,3 +5,12 @@ ja:
     attributes:
       post:
         content: "内容"
+        images: "画像"
+    errors:
+      models:
+        post:
+          attributes:
+            images:
+              too_many: "は%{count}枚までです"
+              invalid_content_type: "はJPEG/PNG/GIF/WebP形式のみアップロード可能です"
+              too_large: "は1枚あたり%{max}までです"

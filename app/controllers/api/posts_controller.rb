@@ -10,6 +10,6 @@ class Api::PostsController < ApplicationController
 
   private
   def posts_params
-    params.expect(posts: [:content])
+    params.expect(posts: [ :content, images: [] ])
   end
 end
