@@ -1,6 +1,6 @@
 class Api::PostsController < ApplicationController
   def index
-    pagy, posts = pagy(Post.all.order(created_at: :desc))
+    pagy, posts = pagy(Post.all.order(created_at: :desc), limit: params[:limit])
     render json: {
       data: PostSerializer.render_as_json(posts),
       pagination: PaginationSerializer.render(pagy)

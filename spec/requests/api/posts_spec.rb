@@ -5,7 +5,9 @@ RSpec.describe "Api::Posts", type: :request do
   let!(:profile) { create(:profile, user: user) }
 
   describe "GET /api/posts" do
-    subject { get api_posts_url }
+    subject { get api_posts_url, params: }
+
+    let(:params) { }
 
     context "ログイン済みの場合" do
       let(:post1) { create(:post) }
@@ -49,11 +51,44 @@ RSpec.describe "Api::Posts", type: :request do
       end
 
       context "ページネーションの検証" do
-        let(:post1) { create(:post) }
-        let(:post2) { create(:post) }
-        let(:post3) { create(:post) }
-        let(:post_with_image) { create(:post) }
-        let(:image) { fixture_file_upload("png_sample1.png", "image/png") }
+        let!(:post1) { create(:post) }
+        let!(:post2) { create(:post) }
+        let!(:post3) { create(:post) }
+
+        let(:params) { { page: 1, limit: 2 } }
+
+        it "ページネーションが正しく動作する" do
+          subject
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body).to eq({
+                                            "data" => [
+                                              {
+                                                "id" => post3.id,
+                                                "content" => post3.content,
+                                                "created_at" => post3.created_at.iso8601,
+                                                "profile" => {
+                                                  "id" => post3.profile.id,
+                                                  "name" => post3.profile.name
+                                                }
+                                              },
+                                              {
+                                                "id" => post2.id,
+                                                "content" => post2.content,
+                                                "created_at" => post2.created_at.iso8601,
+                                                "profile" => {
+                                                  "id" => post2.profile.id,
+                                                  "name" => post2.profile.name
+                                                }
+                                              }
+                                            ],
+                                            "pagination" => {
+                                              "current_page" => 1,
+                                              "total_pages" => 2,
+                                              "total_count" => 3,
+                                              "limit" => 2
+                                            }
+                                          })
+        end
       end
     end
 
