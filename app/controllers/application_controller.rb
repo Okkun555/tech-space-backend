@@ -1,11 +1,13 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
-  include RenderHelper
   include Pagy::Method
+  include Pundit::Authorization
+  include RenderHelper
 
   before_action :authenticated!
 
   rescue_from ActiveRecord::RecordInvalid, with: :rescue_record_invalid
+  rescue_from Pundit::NotAuthorizedError, with: :rescue_forbidden
 
   private
   def current_user

@@ -3,7 +3,12 @@ module RenderHelper
 
   # 401 unauthorized error
   def render_unauthorized(message: "認証が必要です")
-    render_base_error(message: message, code: :unauthorized)
+  render_base_error(message: message, code: :unauthorized)
+  end
+
+  # 403 forbidden error
+  def rescue_forbidden
+    render_base_error(message: "この操作を行う権限がありません", code: :forbidden)
   end
 
   # 409 conflict error

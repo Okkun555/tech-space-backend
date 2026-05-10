@@ -172,4 +172,50 @@ RSpec.describe "Api::Posts", type: :request do
       end
     end
   end
+
+  describe "DELETE /api/posts/:id" do
+    subject { delete api_post_path(post_record) }
+
+    context "ログイン済みの場合" do
+      before do
+        login(user)
+      end
+
+      context "削除対象がログインユーザー自身の投稿である場合" do
+        let!(:post_record) { create(:post, profile:) }
+
+        it "対象の投稿を削除し、200を返す" do
+          expect { subject }.to change(Post, :count).by(-1)
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body["data"]).to eq({
+                                                       "id" => post_record.id,
+                                                       "content" => post_record.content,
+                                                       "created_at" => post_record.created_at.iso8601,
+                                                       "profile" => {
+                                                         "id" => post_record.profile.id,
+                                                         "name" => post_record.profile.name
+                                                       }
+                                                     })
+        end
+      end
+
+      context "削除対象が他ユーザーの投稿である場合" do
+        let!(:post_record) { create(:post) }
+
+        it "403を返す" do
+          expect { subject }.to change(Post, :count).by(0)
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+    end
+
+    context "未ログインの場合" do
+      let!(:post_record) { create(:post, profile:) }
+
+      it "401を返す" do
+        expect { subject }.to change(Post, :count).by(0)
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
 end

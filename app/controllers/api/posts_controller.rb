@@ -8,12 +8,24 @@ class Api::PostsController < ApplicationController
   end
 
   def create
-    post = current_profile.posts.build(posts_params)
-    post.save!
+    @post = current_profile.posts.build(posts_params)
+    authorize @post
+    @post.save!
 
     render json: {
-      data: PostSerializer.render_as_json(post)
+      data: PostSerializer.render_as_json(@post)
     }, status: :created
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    authorize @post
+    post.destroy!
+
+
+    render json: {
+      data: PostSerializer.render_as_json(@post)
+    }, status: :ok
   end
 
   private
